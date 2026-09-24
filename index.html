@@ -4,12 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#07070a" />
-<title>RedSkill — Red Shadow</title>
+<title>RedSkill — Segurança ofensiva</title>
 <meta name="description" content="Segurança ofensiva, Pentest e Red Team com evidência, contexto e clareza para agir." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/css/v29-red-shadow.css" />
+<link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body data-service-count="9">
 <a class="skip-link" href="#top">Pular para o conteúdo</a>
@@ -21,8 +21,8 @@
   <div class="wrap">
     <nav class="navbar" aria-label="Navegação principal">
       <a class="brand" href="#top">
-        <img class="dk" src="assets/images/redskill-light.png" alt="RedSkill" />
-        <img class="lt" src="assets/images/redskill-dark.png" alt="RedSkill" />
+        <img class="dk" src="assets/images/logo-light.png" alt="RedSkill" />
+        <img class="lt" src="assets/images/logo-dark.png" alt="RedSkill" />
       </a>
       <div class="nav-r">
         <a href="#servicos">Serviços</a>
@@ -47,10 +47,10 @@
     <figure class="red-stage" id="red-mascot" role="img" aria-label="Red, mascote raposa da RedSkill">
       <span class="red-aura" aria-hidden="true"></span>
       <div class="red-rig" aria-hidden="true">
-      <img class="red-tail" src="assets/images/red/2-red-tail.png" alt="" aria-hidden="true" />
+      <img class="red-tail" src="assets/images/mascot/tail.png" alt="" aria-hidden="true" />
       <div class="red-portrait">
-      <img class="red-body" src="assets/images/red/1-red-body.png" alt="" aria-hidden="true" />
-      <img class="red-body red-blink" src="assets/images/red/1-red-body-blink.png" alt="" aria-hidden="true" />
+      <img class="red-body" src="assets/images/mascot/body.png" alt="" aria-hidden="true" />
+      <img class="red-body red-blink" src="assets/images/mascot/body-blink.png" alt="" aria-hidden="true" />
       </div>
       </div>
     </figure>
@@ -134,10 +134,10 @@
         <figure class="red-stage" id="red-contact" role="img" aria-label="Red, mascote raposa da RedSkill">
           <span class="red-aura" aria-hidden="true"></span>
           <div class="red-rig" aria-hidden="true">
-            <img class="red-tail" src="assets/images/red/2-red-tail.png" alt="" aria-hidden="true" />
+            <img class="red-tail" src="assets/images/mascot/tail.png" alt="" aria-hidden="true" />
             <div class="red-portrait">
-              <img class="red-body" src="assets/images/red/1-red-body.png" alt="" aria-hidden="true" />
-              <img class="red-body red-blink" src="assets/images/red/1-red-body-blink.png" alt="" aria-hidden="true" />
+              <img class="red-body" src="assets/images/mascot/body.png" alt="" aria-hidden="true" />
+              <img class="red-body red-blink" src="assets/images/mascot/body-blink.png" alt="" aria-hidden="true" />
             </div>
           </div>
         </figure>
@@ -148,7 +148,8 @@
           <div>ENTREGA → <b>evidência e clareza</b></div>
         </div>
       </div>
-      <form id="contact-form">
+      <form id="contact-form" action="https://formspree.io/f/maenjzvp" method="POST" accept-charset="UTF-8">
+        <input type="hidden" name="_subject" value="Novo contato pelo site RedSkill" />
         <div class="field"><label for="name">Nome / Empresa</label><input id="name" name="name" required autocomplete="organization" placeholder="Como podemos chamar você?" /></div>
         <div class="field"><label for="email">E-mail corporativo</label><input id="email" name="email" type="email" required autocomplete="email" placeholder="voce@empresa.com.br" /></div>
         <div class="field"><label for="service">Qual é o seu desafio?</label>
@@ -163,7 +164,7 @@
           </select>
         </div>
         <div class="field"><label for="message">Um pouco de contexto</label><textarea id="message" name="message" placeholder="Seu ambiente, objetivo e o melhor momento para começar."></textarea></div>
-        <button class="btn btn-red" type="submit">Preparar conversa por e-mail ↗</button>
+        <button class="btn btn-red" type="submit">Enviar solicitação ↗</button>
         <p class="form-status" id="form-status" role="status"></p>
       </form>
     </div>
@@ -173,17 +174,17 @@
 <footer>
   <div class="wrap">
     <div class="foot">
-      <img class="dk" src="assets/images/redskill-light.png" alt="RedSkill" />
-      <img class="lt" src="assets/images/redskill-dark.png" alt="RedSkill" />
+      <img class="dk" src="assets/images/logo-light.png" alt="RedSkill" />
+      <img class="lt" src="assets/images/logo-dark.png" alt="RedSkill" />
       <p>© 2026 RedSkill · Segurança ofensiva</p>
       <a href="#top">Voltar para o topo ↑</a>
     </div>
   </div>
 </footer>
 
-<script src="assets/js/v26-glitchfusion-sonar.js" defer></script>
-<script src="assets/js/v27-red-mascot.js?v=9" defer></script>
-<script src="assets/js/v28-radar.js" defer></script>
-<script src="assets/js/v29-red-shadow.js" defer></script>
+<script src="assets/js/core.js" defer></script>
+<script src="assets/js/mascot.js" defer></script>
+<script src="assets/js/radar.js" defer></script>
+<script src="assets/js/hero.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,118 @@
+@import url('./base.css');
+
+.h-cta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(100%,470px);margin-left:auto;margin-right:auto}
+.h-cta .btn{width:100%;min-height:44px;justify-content:center;text-align:center;white-space:normal}
+
+/* Radar compacto e interativo, alinhado às versões mais recentes. */
+.radar{max-width:132px;margin:4px auto 8px;isolation:isolate;border-radius:50%;background:radial-gradient(circle,rgba(255,45,45,.08),transparent 68%);box-shadow:0 0 40px -20px rgba(255,45,45,.4)}
+.radar svg{position:relative;z-index:2;display:block;pointer-events:none}
+.radar-ticks{opacity:.4}
+.radar .sweep{animation:none;background:conic-gradient(from -68deg,transparent 0deg,rgba(255,45,45,.04) 24deg,rgba(255,45,45,.3) 66deg,rgba(255,90,80,.8) 68deg,transparent 69deg);will-change:transform}
+.radar .blip{z-index:3;animation:none;transform:translate(-50%,-50%);width:5px;height:5px;opacity:var(--signal,.4);box-shadow:0 0 8px rgba(255,45,45,.6);transition:opacity .15s,box-shadow .2s,background .2s}
+.radar .blip::after{content:"";position:absolute;inset:-5px;border:1px solid currentColor;border-radius:50%;color:var(--red);opacity:var(--signal,.2)}
+.radar .blip-c{left:73%;top:68%}
+.radar .blip.is-near{background:var(--ink);box-shadow:0 0 14px var(--red)}
+.radar-target{position:absolute;z-index:4;left:50%;top:50%;width:20px;height:20px;border:1px solid var(--red);border-radius:50%;transform:translate(-50%,-50%);opacity:0;pointer-events:none;transition:opacity .2s}
+.radar-target::before,.radar-target::after{content:"";position:absolute;background:var(--red);opacity:.8}
+.radar-target::before{height:1px;width:28px;left:-5px;top:8px}
+.radar-target::after{width:1px;height:28px;left:8px;top:-5px}
+.radar.is-tracking .radar-target{opacity:1}
+.radar-caption{display:flex;justify-content:space-between;gap:12px;margin-top:auto;font:10px var(--mono);letter-spacing:.08em;color:var(--muted)}
+.radar-bearing{color:var(--red);font-variant-numeric:tabular-nums}
+@media(max-width:600px){.h-cta{grid-template-columns:minmax(0,1fr);max-width:340px}}
+@media(prefers-reduced-motion:reduce){.radar .blip,.radar-target{transition:none}}
+
+/* V27 — Red lives between the command line and the primary actions. */
+.red-stage{
+  --red-look-x:0deg;
+  --red-look-y:0deg;
+  position:relative;
+  z-index:2;
+  width:clamp(360px,39vw,590px);
+  aspect-ratio:1122/1402;
+  margin:0 auto;
+  isolation:isolate;
+  transform-style:preserve-3d;
+  perspective:1000px;
+}
+.red-stage::after{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  left:13%;
+  right:13%;
+  bottom:2.5%;
+  height:8%;
+  border-radius:50%;
+  background:rgba(0,0,0,.62);
+  filter:blur(22px);
+  transform:scaleX(.82);
+  opacity:.78;
+}
+.red-stage img{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.red-aura{
+  position:absolute;
+  z-index:-3;
+  width:76%;
+  aspect-ratio:1;
+  left:50%;
+  top:47%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,45,45,.2),rgba(255,45,45,.06) 42%,transparent 70%);
+  filter:blur(38px);
+  transform:translate(-50%,-50%);
+  opacity:.82;
+}
+.red-stage .red-tail{
+  z-index:-1;
+  inset:32% auto auto -12%;
+  width:68%;
+  height:68%;
+  transform-origin:72% 79%;
+  filter:drop-shadow(0 20px 22px rgba(0,0,0,.34));
+  will-change:transform;
+}
+.red-rig{position:absolute;inset:0;isolation:isolate;will-change:transform;transform-origin:55% 75%}
+.red-portrait{position:absolute;inset:0;z-index:1;will-change:transform}
+.red-stage .red-body{
+  z-index:1;
+  left:2.25%;
+  transform-origin:54% 62%;
+  filter:drop-shadow(0 25px 28px rgba(0,0,0,.36));
+  will-change:transform;
+}
+.red-stage .red-blink{z-index:2;opacity:0;clip-path:polygon(48% 28%,79% 28%,79% 39%,48% 39%);filter:none}
+.red-stage.is-blinking .red-blink{opacity:1}
+.service-icon{display:block;width:52px;height:52px;color:var(--red);margin-bottom:24px;filter:drop-shadow(0 0 10px rgba(255,45,45,.25))}
+#servicos .tc{border-color:rgba(255,45,45,.2)}
+#servicos .tc h3{margin-top:0}
+.red-stage.is-active .red-aura{animation:redAura 4.8s ease-in-out infinite}
+@keyframes redAura{
+  0%,100%{opacity:.68;scale:.96}
+  50%{opacity:.92;scale:1.04}
+}
+
+.red-stage + .h-cta{margin-top:22px}
+
+@media(max-width:820px){
+  .red-stage{width:clamp(330px,72vw,520px);margin-top:2px}
+}
+@media(max-width:600px){
+  .red-stage{left:50%;width:min(116vw,430px);margin:4px 0 0;transform:translateX(-50%)}
+  html.anim .red-stage.reveal{transform:translate(-50%,30px)}
+  html.anim .red-stage.reveal.in{transform:translateX(-50%)}
+  .red-stage + .h-cta{position:relative;z-index:3}
+}
+@media(prefers-reduced-motion:reduce){
+  .red-stage .red-tail,.red-stage .red-body,.red-stage .red-aura{animation:none!important;transform:none}
+}
