@@ -1,6 +1,7 @@
 @import url("./contact.css");
 
 .contact-honeypot{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+.cf-turnstile{align-self:center;margin-inline:auto;max-width:100%}
 #contact-submit:disabled{opacity:.6;cursor:not-allowed}
 .form-status{min-height:1.5em}
 .form-status.success{color:var(--green)}

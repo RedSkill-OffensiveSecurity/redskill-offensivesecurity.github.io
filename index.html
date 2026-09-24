@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/css/site.css" />
+<link rel="stylesheet" href="assets/css/site.css?v=2" />
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body data-service-count="9">
@@ -174,11 +174,11 @@
           <label for="message">Um pouco de contexto</label>
           <textarea id="message" name="message" required minlength="5" maxlength="5000" placeholder="Seu ambiente, objetivo e o melhor momento para começar."></textarea>
         </div>
-        <div class="contact-honeypot" aria-hidden="true">
+        <div class="contact-honeypot" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
           <label for="website">Website</label>
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
         </div>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFB31nzNA8Ipk39p" data-theme="auto"></div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFB31nzNA8Ipk39p" data-theme="auto" style="align-self:center;margin-inline:auto"></div>
         <button class="btn btn-red" id="contact-submit" type="submit">Enviar solicitação ↗</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
@@ -201,6 +201,6 @@
 <script src="assets/js/mascot.js" defer></script>
 <script src="assets/js/radar.js" defer></script>
 <script src="assets/js/hero.js" defer></script>
-<script src="assets/js/contact.js" defer></script>
+<script src="assets/js/contact.js?v=2" defer></script>
 </body>
 </html>
