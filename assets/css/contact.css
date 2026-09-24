@@ -29,10 +29,10 @@
 .contact .contact-lead{font-size:14px;margin-top:14px}
 .contact .red-stage{width:218px;max-width:78%;margin:0 auto;left:auto;transform:none;flex:none}
 .contact .det{font-size:11.5px;gap:10px;overflow-wrap:anywhere;margin-top:auto;padding-top:18px;border-top:1px solid var(--line)}
-.contact .email-reveal{display:inline;appearance:none;-webkit-appearance:none;border:0;border-radius:0;background:transparent;padding:0;margin:0;color:var(--ink);font:inherit;line-height:inherit;vertical-align:baseline;cursor:pointer;text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
-.contact .email-reveal b{color:inherit}
-.contact .email-reveal:hover,.contact .email-reveal:focus-visible{color:var(--red)}
-.contact .email-reveal:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
+.contact .contact-email-slot{color:var(--ink)}
+.contact .contact-email-link{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px;transition:color .2s}
+.contact .contact-email-link:hover,.contact .contact-email-link:focus-visible{color:var(--red)}
+.contact .contact-email-link:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
 .contact form{padding:34px;gap:22px;min-width:0}
 .contact form .field:has(textarea){flex:1;min-height:170px}
 .contact textarea{min-height:144px;flex:1}

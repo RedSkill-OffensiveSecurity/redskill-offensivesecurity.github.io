@@ -1,22 +1,22 @@
 (() => {
   'use strict';
 
-  const emailButton = document.querySelector('.email-reveal');
+  const emailSlot = document.getElementById('contact-email');
 
-  if (emailButton) {
-    emailButton.addEventListener('click', () => {
-      const reverse = value => Array.from(value).reverse().join('');
-      const address = `${reverse(emailButton.dataset.user || '')}@${reverse(emailButton.dataset.host || '')}`;
-      const link = document.createElement('a');
-      const label = document.createElement('b');
+  if (emailSlot) {
+    const encodedAddress = [56, 7, 27, 246, 238, 232, 198, 246, 177, 181, 185, 153, 156, 109, 125, 114, 5, 91, 42, 63, 113, 14, 11];
+    const address = String.fromCharCode(
+      ...encodedAddress.map((value, index) => value ^ ((91 + index * 13) & 255)),
+    );
+    const link = document.createElement('a');
+    const label = document.createElement('b');
 
-      link.href = `mailto:${address}`;
-      link.setAttribute('aria-label', `Enviar e-mail para ${address}`);
-      label.textContent = address;
-      link.append(label);
-      emailButton.replaceWith(link);
-      link.focus();
-    }, {once: true});
+    link.className = 'contact-email-link';
+    link.href = `mailto:${address}`;
+    link.setAttribute('aria-label', `Enviar e-mail para ${address}`);
+    label.textContent = address;
+    link.append(label);
+    emailSlot.replaceWith(link);
   }
 
   const form = document.getElementById('contact-form');
