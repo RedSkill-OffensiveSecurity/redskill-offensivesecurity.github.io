@@ -27,7 +27,7 @@
 
   header{position:fixed;top:16px;left:0;right:0;z-index:90}
   .navbar{display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 10px 0 20px;border-radius:17px;background:var(--glass);backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--line);box-shadow:var(--shadow);position:relative;overflow:hidden;isolation:isolate}
-  .brand,.nav-r{position:relative;z-index:1}.brand img{width:auto;height:21px;display:block}
+  .brand,.nav-r{position:relative;z-index:1}.brand img{width:86px;height:21px;display:block}
   .brand img.lt{display:none}
   [data-theme="light"] .brand img.dk{display:none}
   [data-theme="light"] .brand img.lt{display:block}
@@ -174,7 +174,7 @@
 
   footer{border-top:1px solid var(--line);padding:40px 0}
   .foot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-  .foot img{height:20px}
+  .foot img{width:82px;height:20px}
   .foot img.lt{display:none}
   [data-theme="light"] .foot img.dk{display:none}
   [data-theme="light"] .foot img.lt{display:block}
