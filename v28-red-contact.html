@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#07070a" />
+<title>RedSkill — Red no Contato</title>
+<meta name="description" content="Segurança ofensiva, Pentest e Red Team com evidência, contexto e clareza para agir." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/v28-red-contact.css" />
+</head>
+<body data-service-count="9">
+<a class="skip-link" href="#top">Pular para o conteúdo</a>
+<div class="aur a1"></div><div class="aur a2"></div>
+<div class="progress" id="prog" aria-hidden="true"></div>
+<div class="aim-cursor" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><g class="aim-brackets" stroke="currentColor" stroke-width="1.4"><path d="M15 4H4v11M33 4h11v11M44 33v11H33M15 44H4V33"/></g><g class="aim-ring" stroke="currentColor" stroke-width="1.25"><circle cx="24" cy="24" r="11" stroke-dasharray="7 4"/><path d="M24 9v7m0 16v7M9 24h7m16 0h7"/></g><circle cx="24" cy="24" r="2.2" fill="currentColor"/></svg></div>
+
+<header>
+  <div class="wrap">
+    <nav class="navbar" aria-label="Navegação principal">
+      <a class="brand" href="#top">
+        <img class="dk" src="assets/images/redskill-light.png" alt="RedSkill" />
+        <img class="lt" src="assets/images/redskill-dark.png" alt="RedSkill" />
+      </a>
+      <div class="nav-r">
+        <a href="#servicos">Serviços</a>
+        <a href="#metodo">Método</a>
+        <a href="#contato">Contato</a>
+        <button class="tgl" id="tgl" type="button" aria-label="Alternar tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.2A8.2 8.2 0 019.8 4 8.4 8.4 0 1020 14.2z"/></svg>
+        </button>
+        <a class="btn btn-red" href="#contato">Solicitar orçamento</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top" class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="rings"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="sys reveal"><b>●</b> segurança ofensiva · visão além do óbvio · brasil</div>
+    <h1 class="hero-title reveal">
+      <span class="glitch-line" data-txt="O RISCO EXISTE.">O risco existe.</span>
+      <span class="glitch-line" data-txt="A VANTAGEM É">A vantagem é</span>
+      <span class="glitch-line r" data-txt="SABER ANTES.">saber antes.</span>
+    </h1>
+    <div class="typed-wrap reveal"><span class="tp">$</span> <span id="typed"></span><span class="cur"></span></div>
+
+
+
+    <div class="h-cta reveal">
+      <a class="btn btn-red" href="#contato">Mapear meu risco ↗</a>
+      <a class="btn btn-glass" href="#servicos">Explore nossa expertise ↓</a>
+    </div>
+
+    <div class="bento">
+      <div class="b b-3 reveal">
+        <span class="k">// Evidência antes de opinião</span>
+        <h3>Encontramos os caminhos dos riscos.</h3>
+        <div class="mini-term" id="mterm"></div>
+      </div>
+      <div class="b b-3 reveal">
+        <span class="k">// Perspectiva adversarial</span>
+        <h3>Além da superfície</h3>
+        <div class="radar" tabindex="0" role="group" aria-label="Radar interativo ilustrativo. Use as setas para explorar e Escape para retomar a varredura.">
+          <svg viewBox="0 0 200 200" fill="none" aria-hidden="true">
+            <circle class="radar-ticks" cx="100" cy="100" r="99" stroke="var(--red)" stroke-width="2" stroke-dasharray="1 9.37"/>
+            <circle cx="100" cy="100" r="96" stroke="var(--line-2)" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="64" stroke="var(--line)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="32" stroke="var(--line)" stroke-width="1"/>
+            <line x1="100" y1="4" x2="100" y2="196" stroke="var(--line)"/>
+            <line x1="4" y1="100" x2="196" y2="100" stroke="var(--line)"/>
+            <circle cx="100" cy="100" r="4" fill="var(--red)"/>
+          </svg>
+          <div class="sweep"></div>
+          <span class="blip blip-a"></span>
+          <span class="blip blip-b"></span>
+          <span class="blip blip-c"></span>
+          <span class="radar-target" aria-hidden="true"></span>
+        </div>
+        <div class="radar-caption" aria-hidden="true"><span class="radar-state">VARREDURA ATIVA</span><span class="radar-bearing">000°</span></div>
+      </div>
+      <div class="b b-2 reveal"><span class="k">01.3 / Visão adversarial</span><div class="principle">Contexto <em>muda tudo.</em></div><p>O mesmo achado, em ambientes diferentes, pode representar riscos distintos.</p></div>
+      <div class="b b-2 reveal"><span class="k">01.4 / Parceria técnica</span><div class="principle">Do seu <em>lado.</em></div><p>Diálogo com sua equipe para transformar achados em melhorias práticas.</p></div>
+      <div class="b b-2 reveal"><span class="k">01.5 / Nosso princípio</span><div class="principle">Ataque com <em>propósito.</em></div><p>Cada teste tem um objetivo: fortalecer a capacidade de defesa do seu negócio.</p></div>
+    </div>
+  </div>
+</main>
+
+<section class="services" id="servicos">
+  <div class="wrap">
+    <div class="sec-top">
+      <span class="kick reveal">02 — Tipos de pentest</span>
+      <h2 class="h2 reveal">Nove frentes<br/><em>de ataque.</em></h2>
+    </div>
+    <div class="tilt-grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="timeline" id="metodo">
+  <div class="wrap">
+    <span class="kick reveal">03 — Método</span>
+    <h2 class="h2 reveal">Rigor em cada etapa.<br/><em>Clareza em cada entrega.</em></h2>
+    <div class="tl" id="tl"><div class="fill-line" id="tlfill"></div></div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap">
+    <div class="cbox reveal">
+      <div class="cinfo">
+        <div>
+          <span class="kick">04 — Próximo passo</span>
+          <h2 class="contact-title">Coloque seu risco<br/><em>no nosso radar.</em></h2>
+          <p class="contact-lead">Conte o que você precisa proteger. Nós ajudamos a definir por onde começar.</p>
+        </div>
+        <figure class="red-stage" id="red-mascot" role="img" aria-label="Red, mascote raposa da RedSkill">
+      <span class="red-aura" aria-hidden="true"></span>
+      <div class="red-rig" aria-hidden="true">
+      <img class="red-tail" src="assets/images/red/2-red-tail.png" alt="" aria-hidden="true" />
+      <div class="red-portrait">
+      <img class="red-body" src="assets/images/red/1-red-body.png" alt="" aria-hidden="true" />
+      <img class="red-body red-blink" src="assets/images/red/1-red-body-blink.png" alt="" aria-hidden="true" />
+      </div>
+      </div>
+    </figure>
+        <div class="det">
+          <div><b class="status-dot">●</b> Segurança ofensiva · visão além do óbvio</div>
+          <div>E-MAIL → <a href="mailto:contato@redskill.com.br"><b>contato@redskill.com.br</b></a></div>
+          <div>ENTREGA → <b>evidência e clareza</b></div>
+        </div>
+      </div>
+      <form id="contact-form">
+        <div class="field"><label for="name">Nome / Empresa</label><input id="name" name="name" required autocomplete="organization" placeholder="Como podemos chamar você?" /></div>
+        <div class="field"><label for="email">E-mail corporativo</label><input id="email" name="email" type="email" required autocomplete="email" placeholder="voce@empresa.com.br" /></div>
+        <div class="field"><label for="service">Qual é o seu desafio?</label>
+          <select id="service" name="service">
+            <option>Pentest</option>
+            <option>Red Team</option>
+            <option>Análise de Vulnerabilidades</option>
+            <option>Resposta a Incidentes</option>
+            <option>Treinamento</option>
+            <option>Compliance &amp; LGPD</option>
+            <option>Quero orientação para definir</option>
+          </select>
+        </div>
+        <div class="field"><label for="message">Um pouco de contexto</label><textarea id="message" name="message" placeholder="Seu ambiente, objetivo e o melhor momento para começar."></textarea></div>
+        <button class="btn btn-red" type="submit">Preparar conversa por e-mail ↗</button>
+        <p class="form-status" id="form-status" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <img class="dk" src="assets/images/redskill-light.png" alt="RedSkill" />
+      <img class="lt" src="assets/images/redskill-dark.png" alt="RedSkill" />
+      <p>© 2026 RedSkill · Segurança ofensiva</p>
+      <a href="#top">Voltar para o topo ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/v26-glitchfusion-sonar.js" defer></script>
+<script src="assets/js/v27-red-mascot.js?v=9" defer></script>
+<script src="assets/js/v28-radar.js" defer></script>
+</body>
+</html>
