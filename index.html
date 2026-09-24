@@ -10,6 +10,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/site.css" />
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer>
+</script>
 </head>
 <body data-service-count="9">
 <a class="skip-link" href="#top">Pular para o conteúdo</a>
@@ -127,45 +132,102 @@
       <div class="cinfo">
         <div>
           <span class="kick">04 — Próximo passo</span>
-          <h2 class="contact-title">Coloque seu risco<br/><em>no nosso radar.</em></h2>
-          <p class="contact-lead">Conte o que você precisa proteger. Nós ajudamos a definir por onde começar.</p>
+          <h2 class="contact-title">
+            Coloque seu risco<br/>
+            <em>no nosso radar.</em>
+          </h2>
+          <p class="contact-lead">
+            Conte o que você precisa proteger.
+                        Nós ajudamos a definir por onde começar.
+          </p>
         </div>
-
         <figure class="red-stage" id="red-contact" role="img" aria-label="Red, mascote raposa da RedSkill">
           <span class="red-aura" aria-hidden="true"></span>
           <div class="red-rig" aria-hidden="true">
-            <img class="red-tail" src="assets/images/mascot/tail.png" alt="" aria-hidden="true" />
+            <img class="red-tail" src="assets/images/mascot/tail.png" alt="" aria-hidden="true"/>
             <div class="red-portrait">
-              <img class="red-body" src="assets/images/mascot/body.png" alt="" aria-hidden="true" />
-              <img class="red-body red-blink" src="assets/images/mascot/body-blink.png" alt="" aria-hidden="true" />
+              <img class="red-body" src="assets/images/mascot/body.png" alt="" aria-hidden="true"/>
+              <img class="red-body red-blink" src="assets/images/mascot/body-blink.png" alt="" aria-hidden="true"/>
             </div>
           </div>
         </figure>
-
         <div class="det">
-          <div><b class="status-dot">●</b> Segurança ofensiva · visão além do óbvio</div>
-          <div>E-MAIL → <a href="mailto:contato@redskill.com.br"><b>contato@redskill.com.br</b></a></div>
-          <div>ENTREGA → <b>evidência e clareza</b></div>
+          <div>
+            <b class="status-dot">●</b>
+            Segurança ofensiva · visão além do óbvio
+          </div>
+          <div>
+            E-MAIL →
+            <a href="mailto:contato@redskill.com.br">
+              <b>contato@redskill.com.br</b>
+            </a>
+          </div>
+          <div>
+            ENTREGA →
+            <b>evidência e clareza</b>
+          </div>
         </div>
       </div>
-      <form id="contact-form" action="https://formspree.io/f/maenjzvp" method="POST" accept-charset="UTF-8">
-        <input type="hidden" name="_subject" value="Novo contato pelo site RedSkill" />
-        <div class="field"><label for="name">Nome / Empresa</label><input id="name" name="name" required autocomplete="organization" placeholder="Como podemos chamar você?" /></div>
-        <div class="field"><label for="email">E-mail corporativo</label><input id="email" name="email" type="email" required autocomplete="email" placeholder="voce@empresa.com.br" /></div>
-        <div class="field"><label for="service">Qual é o seu desafio?</label>
+      <form id="contact-form" accept-charset="UTF-8">
+        <div class="field">
+          <label for="name">
+            Nome / Empresa
+          </label>
+          <input id="name" name="name" type="text" required maxlength="100" autocomplete="organization" placeholder="Como podemos chamar você?"/>
+        </div>
+        <div class="field">
+          <label for="email">
+            E-mail corporativo
+          </label>
+          <input id="email" name="email" type="email" required maxlength="254" autocomplete="email" placeholder="voce@empresa.com.br"/>
+        </div>
+        <div class="field">
+          <label for="service">
+            Qual é o seu desafio?
+          </label>
           <select id="service" name="service">
-            <option>Pentest</option>
-            <option>Red Team</option>
-            <option>Análise de Vulnerabilidades</option>
-            <option>Resposta a Incidentes</option>
-            <option>Treinamento</option>
-            <option>Compliance &amp; LGPD</option>
-            <option>Quero orientação para definir</option>
+            <option value="Pentest">
+              Pentest
+            </option>
+            <option value="Red Team">
+              Red Team
+            </option>
+            <option value="Análise de Vulnerabilidades">
+              Análise de Vulnerabilidades
+            </option>
+            <option value="Resposta a Incidentes">
+              Resposta a Incidentes
+            </option>
+            <option value="Treinamento">
+              Treinamento
+            </option>
+            <option value="Compliance & LGPD">
+              Compliance &amp; LGPD
+            </option>
+            <option value="Quero orientação para definir">
+              Quero orientação para definir
+            </option>
           </select>
         </div>
-        <div class="field"><label for="message">Um pouco de contexto</label><textarea id="message" name="message" placeholder="Seu ambiente, objetivo e o melhor momento para começar."></textarea></div>
-        <button class="btn btn-red" type="submit">Enviar solicitação ↗</button>
-        <p class="form-status" id="form-status" role="status"></p>
+        <div class="field">
+          <label for="message">
+            Um pouco de contexto
+          </label>
+          <textarea id="message" name="message" required minlength="5" maxlength="5000" placeholder="Seu ambiente, objetivo e o melhor momento para começar."></textarea>
+        </div>
+        <!-- Honeypot anti-spam -->
+        <div class="contact-honeypot" aria-hidden="true">
+          <label for="website">
+            Website
+          </label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off"/>
+        </div>
+        <!-- Cloudflare Turnstile -->
+        <div class="cf-turnstile" data-sitekey="SUA_TURNSTILE_SITE_KEY" data-theme="auto"></div>
+        <button class="btn btn-red" id="contact-submit" type="submit">
+          Enviar solicitação ↗
+        </button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
   </div>
