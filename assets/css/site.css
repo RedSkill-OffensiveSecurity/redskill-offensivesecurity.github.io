@@ -1,4 +1,4 @@
-@import url("./contact.css");
+@import url("./contact.css?v=2");
 
 .contact-honeypot{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
 .cf-turnstile{align-self:center;margin-inline:auto;max-width:100%}

@@ -447,33 +447,6 @@
     schedule(true);
   }
 
-  function setupContactForm() {
-    const form = select('#contact-form');
-    if (!form || select('#contact-submit')) return;
-    const status = select('#form-status');
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const data = new FormData(form);
-      const body = [
-        `Nome / Empresa: ${data.get('name')}`,
-        `E-mail: ${data.get('email')}`,
-        `Serviço: ${data.get('service')}`,
-        '',
-        data.get('message'),
-      ].join('\n');
-      const href = `mailto:contato@redskill.com.br?subject=${encodeURIComponent(`Novo projeto · ${data.get('service')}`)}&body=${encodeURIComponent(body)}`;
-      const retry = document.createElement('a');
-      retry.href = href;
-      retry.textContent = 'abra a mensagem aqui';
-      status.replaceChildren(
-        document.createTextNode('Continue no seu aplicativo de e-mail. Se ele não abriu, '),
-        retry,
-        document.createTextNode('.'),
-      );
-      window.location.href = href;
-    });
-  }
-
   renderContent();
   setupTheme();
   setupTyping();
@@ -483,5 +456,4 @@
   setupScrollEffects();
   setupReveals();
   setupGlitch();
-  setupContactForm();
 })();

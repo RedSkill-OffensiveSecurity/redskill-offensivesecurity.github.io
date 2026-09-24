@@ -1,6 +1,24 @@
 (() => {
   'use strict';
 
+  const emailButton = document.querySelector('.email-reveal');
+
+  if (emailButton) {
+    emailButton.addEventListener('click', () => {
+      const reverse = value => Array.from(value).reverse().join('');
+      const address = `${reverse(emailButton.dataset.user || '')}@${reverse(emailButton.dataset.host || '')}`;
+      const link = document.createElement('a');
+      const label = document.createElement('b');
+
+      link.href = `mailto:${address}`;
+      link.setAttribute('aria-label', `Enviar e-mail para ${address}`);
+      label.textContent = address;
+      link.append(label);
+      emailButton.replaceWith(link);
+      link.focus();
+    }, {once: true});
+  }
+
   const form = document.getElementById('contact-form');
   if (!form) return;
 
