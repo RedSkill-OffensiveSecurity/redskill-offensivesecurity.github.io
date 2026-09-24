@@ -74,6 +74,7 @@
         theme: 'auto',
         size: compact ? 'compact' : 'flexible',
         appearance: 'always',
+        action: 'contact',
         retry: 'auto',
         'retry-interval': 8000,
         callback: token => setVerification(token, 'Verificação concluída.'),
@@ -135,7 +136,8 @@
       } catch (_) {}
 
       if (!response.ok) {
-        throw new Error(result.error || 'Não foi possível enviar sua solicitação.');
+        const reference = result.requestId ? ` Referência: ${result.requestId}` : '';
+        throw new Error(`${result.error || 'Não foi possível enviar sua solicitação.'}${reference}`);
       }
 
       form.reset();
