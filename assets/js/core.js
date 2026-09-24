@@ -26,7 +26,7 @@
   function setupTheme() {
     const button = select('#tgl');
     const themeColor = select('meta[name="theme-color"]');
-    const storageKey = 'redskill-v26-theme';
+    const storageKey = 'redskill-site-theme';
     const applyTheme = (theme) => {
       root.dataset.theme = theme;
       const isLight = theme === 'light';
@@ -449,7 +449,7 @@
 
   function setupContactForm() {
     const form = select('#contact-form');
-    if (!form || /^https:\/\/formspree\.io\//i.test(form.action)) return;
+    if (!form || select('#contact-submit')) return;
     const status = select('#form-status');
     form.addEventListener('submit', (event) => {
       event.preventDefault();

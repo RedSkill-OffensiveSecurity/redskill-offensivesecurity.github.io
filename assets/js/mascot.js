@@ -16,7 +16,7 @@
   );
   const grid = document.querySelector('#grid');
   while (grid.children.length < fronts.length) {
-    grid.insertAdjacentHTML('beforeend', '<article class="tc" data-v27-added><span class="num"></span><h3></h3><p></p><span class="ln" aria-hidden="true"><i></i></span></article>');
+    grid.insertAdjacentHTML('beforeend', '<article class="tc" data-service-added><span class="num"></span><h3></h3><p></p><span class="ln" aria-hidden="true"><i></i></span></article>');
   }
   // Keep the existing card elements and their lighting/tilt event listeners.
   document.querySelectorAll('#grid .tc').forEach((card, index) => {
@@ -26,7 +26,7 @@
     card.querySelector('p').textContent = description;
   });
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    grid.querySelectorAll('[data-v27-added]').forEach(card => {
+    grid.querySelectorAll('[data-service-added]').forEach(card => {
       let frame = 0;
       card.addEventListener('pointermove', event => {
         if (frame) return;

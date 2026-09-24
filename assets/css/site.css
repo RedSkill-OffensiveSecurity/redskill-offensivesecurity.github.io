@@ -1,5 +1,11 @@
 @import url("./contact.css");
 
+.contact-honeypot{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+#contact-submit:disabled{opacity:.6;cursor:not-allowed}
+.form-status{min-height:1.5em}
+.form-status.success{color:var(--green)}
+.form-status.error{color:var(--red)}
+
 .hero-intro{--red-size:min(76vw,620px);position:relative;isolation:isolate;min-height:calc(var(--red-size) * 1.25 - 150px);display:flex;flex-direction:column;justify-content:center;padding:32px 0}
 .hero-intro>.red-stage{position:absolute;z-index:-1;width:var(--red-size);max-width:none;left:50%;top:calc(var(--red-size) * .625 - 126px);margin:0;transform:translate(-50%,-50%);opacity:.3;pointer-events:none}
 .hero-intro .red-aura{display:none}

@@ -22,7 +22,7 @@
 @media(max-width:600px){.h-cta{grid-template-columns:minmax(0,1fr);max-width:340px}}
 @media(prefers-reduced-motion:reduce){.radar .blip,.radar-target{transition:none}}
 
-/* V27 — Red lives between the command line and the primary actions. */
+/* Mascot composition and motion layers. */
 .red-stage{
   --red-look-x:0deg;
   --red-look-y:0deg;
