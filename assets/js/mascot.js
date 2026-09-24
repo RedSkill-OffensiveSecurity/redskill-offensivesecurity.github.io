@@ -96,8 +96,10 @@
       }).catch(() => {});
     };
     const afterLoad = () => {
-      if ('requestIdleCallback' in window) requestIdleCallback(start, {timeout: 1800});
-      else setTimeout(start, 350);
+      setTimeout(() => {
+        if ('requestIdleCallback' in window) requestIdleCallback(start, {timeout: 1200});
+        else start();
+      }, 1800);
     };
     if (document.readyState === 'complete') afterLoad();
     else window.addEventListener('load', afterLoad, {once:true});

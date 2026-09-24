@@ -27,8 +27,10 @@
   const turnstileContainer = document.getElementById('turnstile-widget');
   const turnstileStatus = document.getElementById('turnstile-status');
   const apiUrl = 'https://redskill-contact.pedro-araujo-730.workers.dev';
+  const turnstileApiUrl = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
   let turnstileWidgetId = null;
   let turnstileToken = '';
+  let turnstileStarted = false;
 
   function setStatus(message, type = '') {
     statusElement.textContent = message;
@@ -99,7 +101,49 @@
     }
   }
 
-  renderTurnstile();
+  function loadTurnstile() {
+    if (window.turnstile) return Promise.resolve();
+
+    return new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[src="${turnstileApiUrl}"]`);
+      if (existing) {
+        existing.addEventListener('load', resolve, {once:true});
+        existing.addEventListener('error', reject, {once:true});
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = turnstileApiUrl;
+      script.async = true;
+      script.defer = true;
+      script.addEventListener('load', resolve, {once:true});
+      script.addEventListener('error', reject, {once:true});
+      document.head.append(script);
+    });
+  }
+
+  function startTurnstile() {
+    if (turnstileStarted) return;
+    turnstileStarted = true;
+    setTurnstileStatus('Carregando verificação de segurança…');
+    loadTurnstile()
+      .then(renderTurnstile)
+      .catch(() => setVerification('', 'A verificação foi bloqueada. Libere challenges.cloudflare.com e recarregue a página.'));
+  }
+
+  const contactSection = form.closest('.contact') || form;
+  if ('IntersectionObserver' in window) {
+    const turnstileObserver = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      turnstileObserver.disconnect();
+      startTurnstile();
+    }, {rootMargin:'500px 0px', threshold:0});
+    turnstileObserver.observe(contactSection);
+  } else {
+    startTurnstile();
+  }
+  form.addEventListener('focusin', startTurnstile, {once:true});
+  form.addEventListener('pointerdown', startTurnstile, {once:true, passive:true});
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
