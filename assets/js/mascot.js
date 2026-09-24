@@ -57,6 +57,7 @@
   mascots.forEach((mascot) => {
   const blinkFrame = mascot.querySelector('.red-blink');
   let blinkReady = false;
+  let blinkLoadStarted = false;
   let blinkTimer = 0;
   let openTimer = 0;
   let firstBlink = true;
@@ -83,6 +84,24 @@
     frame = requestAnimationFrame(animate);
   };
   const canBlink = () => blinkReady && !document.hidden && !reducedMotion.matches && mascot.dataset.visible === 'true';
+  const loadBlinkFrame = () => {
+    if (blinkLoadStarted || !blinkFrame?.dataset.src) return;
+    blinkLoadStarted = true;
+    const start = () => {
+      if (blinkFrame.dataset.srcset) blinkFrame.srcset = blinkFrame.dataset.srcset;
+      blinkFrame.src = blinkFrame.dataset.src;
+      blinkFrame.decode().then(() => {
+        blinkReady = true;
+        scheduleBlink();
+      }).catch(() => {});
+    };
+    const afterLoad = () => {
+      if ('requestIdleCallback' in window) requestIdleCallback(start, {timeout: 1800});
+      else setTimeout(start, 350);
+    };
+    if (document.readyState === 'complete') afterLoad();
+    else window.addEventListener('load', afterLoad, {once:true});
+  };
   const scheduleBlink = () => {
     clearTimeout(blinkTimer);
     if (!canBlink()) return;
@@ -103,6 +122,7 @@
   const updatePlayback = () => {
     const active = !document.hidden && !reducedMotion.matches && mascot.dataset.visible === 'true';
     mascot.classList.toggle('is-active', active);
+    if (active) loadBlinkFrame();
     cancelAnimationFrame(frame);
     lastTime = 0;
     if (active) frame = requestAnimationFrame(animate);
@@ -115,7 +135,6 @@
     mascot.classList.remove('is-blinking');
     scheduleBlink();
   };
-  blinkFrame.decode().then(() => { blinkReady = true; scheduleBlink(); }).catch(() => {});
   document.addEventListener('visibilitychange', updatePlayback);
 
   if ('IntersectionObserver' in window) {
