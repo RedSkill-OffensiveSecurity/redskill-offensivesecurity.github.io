@@ -1,14 +1,17 @@
-@import url("./contact.css");
+@import url("./contact.css?v=4");
 
 .contact-honeypot{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
-.cf-turnstile{align-self:center;margin-inline:auto;max-width:100%}
+.turnstile-panel{align-self:center;width:min(100%,320px);min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:7px}
+.turnstile-widget{width:100%;min-height:65px}
+.turnstile-widget.is-compact{width:150px;min-height:140px}
+.turnstile-status{margin:0;color:var(--muted);font:500 10.5px/1.4 var(--mono);text-align:center}
+.turnstile-status:empty{display:none}
+.turnstile-status.success{color:var(--green)}
+.turnstile-status.error{color:var(--red)}
 #contact-submit:disabled{opacity:.6;cursor:not-allowed}
 .form-status{min-height:1.5em}
 .form-status.success{color:var(--green)}
 .form-status.error{color:var(--red)}
-.email-reveal{appearance:none;border:0;background:none;padding:0;color:var(--ink);font:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
-.email-reveal:hover,.email-reveal:focus-visible{color:var(--red)}
-.email-reveal:focus-visible{outline:2px solid var(--red);outline-offset:4px;border-radius:2px}
 
 .hero-intro{--red-size:min(76vw,620px);position:relative;isolation:isolate;min-height:calc(var(--red-size) * 1.25 - 150px);display:flex;flex-direction:column;justify-content:center;padding:32px 0}
 .hero-intro>.red-stage{position:absolute;z-index:-1;width:var(--red-size);max-width:none;left:50%;top:calc(var(--red-size) * .625 - 126px);margin:0;transform:translate(-50%,-50%);opacity:.3;pointer-events:none}

@@ -32,8 +32,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/css/site.css?v=4" />
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=5" />
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
 </head>
 <body data-service-count="9">
 <a class="skip-link" href="#top">Pular para o conteúdo</a>
@@ -204,8 +204,11 @@
           <label for="website">Website</label>
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
         </div>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFB31nzNA8Ipk39p" data-theme="auto" style="align-self:center;margin-inline:auto"></div>
-        <button class="btn btn-red" id="contact-submit" type="submit">Enviar solicitação ↗</button>
+        <div class="turnstile-panel">
+          <div class="turnstile-widget" id="turnstile-widget" data-sitekey="0x4AAAAAAFB31nzNA8Ipk39p"></div>
+          <p class="turnstile-status" id="turnstile-status" role="status" aria-live="polite">Carregando verificação de segurança…</p>
+        </div>
+        <button class="btn btn-red" id="contact-submit" type="submit" disabled>Enviar solicitação ↗</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -227,6 +230,6 @@
 <script src="assets/js/mascot.js" defer></script>
 <script src="assets/js/radar.js" defer></script>
 <script src="assets/js/hero.js" defer></script>
-<script src="assets/js/contact.js?v=4" defer></script>
+<script src="assets/js/contact.js?v=5" defer></script>
 </body>
 </html>

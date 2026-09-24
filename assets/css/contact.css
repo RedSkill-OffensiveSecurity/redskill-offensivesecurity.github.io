@@ -33,6 +33,7 @@
 .contact .contact-email-link{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px;transition:color .2s}
 .contact .contact-email-link:hover,.contact .contact-email-link:focus-visible{color:var(--red)}
 .contact .contact-email-link:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
+.contact input,.contact select,.contact textarea{font-variant-ligatures:none;font-feature-settings:"liga" 0,"calt" 0}
 .contact form{padding:34px;gap:22px;min-width:0}
 .contact form .field:has(textarea){flex:1;min-height:170px}
 .contact textarea{min-height:144px;flex:1}

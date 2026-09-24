@@ -447,25 +447,6 @@
     schedule(true);
   }
 
-  function setupEmailReveal() {
-    const button = select('.email-reveal');
-    if (!button) return;
-
-    button.addEventListener('click', () => {
-      const reverse = value => Array.from(value).reverse().join('');
-      const address = `${reverse(button.dataset.user || '')}@${reverse(button.dataset.host || '')}`;
-      const link = document.createElement('a');
-      const label = document.createElement('b');
-
-      link.href = `mailto:${address}`;
-      link.setAttribute('aria-label', `Enviar e-mail para ${address}`);
-      label.textContent = address;
-      link.append(label);
-      button.replaceWith(link);
-      link.focus();
-    }, {once: true});
-  }
-
   renderContent();
   setupTheme();
   setupTyping();
@@ -475,5 +456,4 @@
   setupScrollEffects();
   setupReveals();
   setupGlitch();
-  setupEmailReveal();
 })();

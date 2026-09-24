@@ -1,12 +1,34 @@
 (() => {
   'use strict';
 
+  const emailSlot = document.getElementById('contact-email');
+
+  if (emailSlot) {
+    const encodedAddress = [56, 7, 27, 246, 238, 232, 198, 246, 177, 181, 185, 153, 156, 109, 125, 114, 5, 91, 42, 63, 113, 14, 11];
+    const address = String.fromCharCode(
+      ...encodedAddress.map((value, index) => value ^ ((91 + index * 13) & 255)),
+    );
+    const link = document.createElement('a');
+    const label = document.createElement('b');
+
+    link.className = 'contact-email-link';
+    link.href = `mailto:${address}`;
+    link.setAttribute('aria-label', `Enviar e-mail para ${address}`);
+    label.textContent = address;
+    link.append(label);
+    emailSlot.replaceWith(link);
+  }
+
   const form = document.getElementById('contact-form');
   if (!form) return;
 
   const submitButton = document.getElementById('contact-submit');
   const statusElement = document.getElementById('form-status');
+  const turnstileContainer = document.getElementById('turnstile-widget');
+  const turnstileStatus = document.getElementById('turnstile-status');
   const apiUrl = 'https://redskill-contact.pedro-araujo-730.workers.dev';
+  let turnstileWidgetId = null;
+  let turnstileToken = '';
 
   function setStatus(message, type = '') {
     statusElement.textContent = message;
@@ -14,13 +36,76 @@
     if (type) statusElement.classList.add(type);
   }
 
+  function setTurnstileStatus(message, type = '') {
+    turnstileStatus.textContent = message;
+    turnstileStatus.classList.remove('success', 'error');
+    if (type) turnstileStatus.classList.add(type);
+  }
+
+  function setVerification(token, message = '') {
+    turnstileToken = token;
+    submitButton.disabled = !turnstileToken;
+    setTurnstileStatus(message, turnstileToken ? 'success' : 'error');
+  }
+
+  function resetTurnstile(message) {
+    turnstileToken = '';
+    submitButton.disabled = true;
+    setTurnstileStatus(message);
+    if (window.turnstile && turnstileWidgetId !== null) {
+      window.turnstile.reset(turnstileWidgetId);
+    }
+  }
+
+  function renderTurnstile() {
+    if (!turnstileContainer || !turnstileStatus) return;
+
+    if (!window.turnstile) {
+      setVerification('', 'A verificação foi bloqueada. Libere challenges.cloudflare.com e recarregue a página.');
+      return;
+    }
+
+    const compact = window.matchMedia('(max-width: 360px)').matches;
+    turnstileContainer.classList.toggle('is-compact', compact);
+
+    try {
+      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+        sitekey: turnstileContainer.dataset.sitekey,
+        theme: 'auto',
+        size: compact ? 'compact' : 'flexible',
+        appearance: 'always',
+        retry: 'auto',
+        'retry-interval': 8000,
+        callback: token => setVerification(token, 'Verificação concluída.'),
+        'expired-callback': () => resetTurnstile('Verificação expirada. Gerando uma nova…'),
+        'timeout-callback': () => resetTurnstile('A verificação expirou. Tentando novamente…'),
+        'error-callback': code => {
+          setVerification('', `Não foi possível carregar a verificação (${code}). Verifique bloqueadores e DNS.`);
+        },
+        'unsupported-callback': () => {
+          setVerification('', 'Este navegador não é compatível com a verificação de segurança.');
+        },
+      });
+
+      window.setTimeout(() => {
+        if (!turnstileToken && !turnstileContainer.querySelector('iframe')) {
+          setVerification('', 'A verificação não carregou. Libere challenges.cloudflare.com no navegador ou DNS.');
+        }
+      }, 10000);
+    } catch (error) {
+      console.error('Erro ao iniciar Turnstile:', error);
+      setVerification('', 'Não foi possível iniciar a verificação de segurança. Recarregue a página.');
+    }
+  }
+
+  renderTurnstile();
+
   form.addEventListener('submit', async event => {
     event.preventDefault();
     setStatus('');
 
-    const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value;
     if (!turnstileToken) {
-      setStatus('Confirme a verificação de segurança.', 'error');
+      setStatus('Aguarde ou libere a verificação de segurança.', 'error');
       return;
     }
 
@@ -55,14 +140,14 @@
 
       form.reset();
       setStatus('Solicitação enviada com sucesso. Entraremos em contato em breve.', 'success');
-      if (window.turnstile) window.turnstile.reset();
+      resetTurnstile('Gerando uma nova verificação…');
     } catch (error) {
       console.error('Erro ao enviar formulário:', error);
       setStatus(error.message || 'Não foi possível enviar sua solicitação.', 'error');
-      if (window.turnstile) window.turnstile.reset();
+      resetTurnstile('Gerando uma nova verificação…');
     } finally {
-      submitButton.disabled = false;
       submitButton.textContent = originalButtonText;
+      submitButton.disabled = !turnstileToken;
     }
   });
 })();
