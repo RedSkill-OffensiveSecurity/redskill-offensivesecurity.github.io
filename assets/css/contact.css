@@ -25,6 +25,13 @@
 .contact .cinfo{gap:22px;padding:34px;justify-content:flex-start;min-width:0}
 .contact .contact-title{font-size:clamp(29px,3.3vw,42px);line-height:1.06}
 .contact .contact-lead{font-size:14px;margin-top:14px}
+.whatsapp-float{position:fixed;right:20px;bottom:20px;z-index:110;display:inline-flex;width:58px;height:58px;align-items:center;justify-content:center;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 10px 28px -8px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.18) inset;transition:background .24s,transform .24s,box-shadow .24s}
+.whatsapp-float::after{content:"";position:absolute;inset:-5px;border:1px solid rgba(37,211,102,.5);border-radius:50%;opacity:.65;pointer-events:none}
+.whatsapp-float:hover{background:#37e879;color:#fff;transform:translateY(-3px);box-shadow:0 14px 30px -8px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.22) inset}
+.whatsapp-float:focus-visible{outline:2px solid #25d366;outline-offset:5px}
+.whatsapp-float img{display:block;width:31px;height:31px;filter:brightness(0) invert(1)}
+@media(prefers-reduced-motion:no-preference){.whatsapp-float::after{animation:whatsapp-pulse 2.8s ease-out infinite}}
+@keyframes whatsapp-pulse{0%,55%,100%{transform:scale(.92);opacity:.1}15%{transform:scale(1.08);opacity:.65}}
 .contact .red-stage{width:218px;max-width:78%;margin:0 auto;left:auto;transform:none;flex:none}
 .contact .det{align-items:center;text-align:center;font-size:11.5px;overflow-wrap:anywhere;margin-top:auto;padding-top:26px;border-top:1px solid var(--line)}
 .contact .contact-email-slot{color:var(--ink)}
@@ -56,6 +63,8 @@
   .contact .det{align-self:stretch}
   .contact form{padding:28px 22px;gap:18px;min-width:0}
   .contact form .btn{white-space:normal;text-align:center;line-height:1.5}
+  .whatsapp-float{right:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:54px;height:54px}
+  .whatsapp-float img{width:29px;height:29px}
 }
 @media(max-width:380px){
   .navbar{padding-left:12px;padding-right:7px}
