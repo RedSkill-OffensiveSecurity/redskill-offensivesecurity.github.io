@@ -6,6 +6,7 @@
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const select = (selector, context = document) => context.querySelector(selector);
   const selectAll = (selector, context = document) => [...context.querySelectorAll(selector)];
+  let heroMotionActive = false;
 
   const services = [
     ['01', 'Pentest', 'Testes de intrusão para validar a segurança de aplicações, APIs, redes e infraestrutura. Evidências contextualizadas e orientação de correção.'],
@@ -14,6 +15,9 @@
     ['04', 'Resposta a Incidentes', 'Investigação técnica, preservação de evidências e apoio à contenção e recuperação. Entenda o ocorrido e os próximos passos.'],
     ['05', 'Treinamento & Conscientização', 'Capacitação técnica e conscientização adaptadas ao papel de cada equipe. Conhecimento aplicável à rotina da sua operação.'],
     ['06', 'Compliance & LGPD', 'Apoio técnico para alinhar práticas de segurança e proteção de dados às exigências do negócio.'],
+    ['07', 'IA', 'Segurança de aplicações e agentes de IA: prompt injection, dados e abuso de fluxos.'],
+    ['08', 'Forense', 'Coleta e análise de evidências digitais para reconstruir eventos e orientar decisões.'],
+    ['09', 'Purple-Team', 'Ataque e defesa juntos para validar controles, telemetria, detecção e resposta.'],
   ];
 
   const steps = [
@@ -48,6 +52,29 @@
     });
   }
 
+  function setupHeroMotionState() {
+    const hero = select('.hero');
+    const bounds = hero.getBoundingClientRect();
+    let intersects = bounds.bottom > 0 && bounds.top < innerHeight;
+    const sync = () => {
+      const active = intersects && !document.hidden && !reduceMotion.matches;
+      if (active === heroMotionActive) return;
+      heroMotionActive = active;
+      hero.classList.toggle('is-motion-active', active);
+      document.dispatchEvent(new Event('redskill:hero-motion'));
+    };
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        intersects = entry.isIntersecting;
+        sync();
+      }, { rootMargin: '80px 0px', threshold: .01 });
+      observer.observe(hero);
+    }
+    document.addEventListener('visibilitychange', sync);
+    reduceMotion.addEventListener('change', sync);
+    sync();
+  }
+
   function setupTyping() {
     const phrases = [
       'pentest --alvo sua-empresa.com.br',
@@ -64,14 +91,20 @@
     let phraseIndex = 0;
     let characterIndex = 0;
     let deleting = false;
+    let timer = 0;
+    const queue = (delay) => {
+      window.clearTimeout(timer);
+      if (heroMotionActive) timer = window.setTimeout(typeNext, delay);
+    };
     function typeNext() {
+      if (!heroMotionActive) return;
       const phrase = phrases[phraseIndex];
       output.textContent = phrase.slice(0, characterIndex);
       if (!deleting) {
         characterIndex += 1;
         if (characterIndex > phrase.length) {
           deleting = true;
-          window.setTimeout(typeNext, 1700);
+          queue(1700);
           return;
         }
       } else {
@@ -81,9 +114,13 @@
           phraseIndex = (phraseIndex + 1) % phrases.length;
         }
       }
-      window.setTimeout(typeNext, deleting ? 26 : 55);
+      queue(deleting ? 26 : 55);
     }
-    typeNext();
+    document.addEventListener('redskill:hero-motion', () => {
+      window.clearTimeout(timer);
+      if (heroMotionActive) typeNext();
+    });
+    if (heroMotionActive) typeNext();
   }
 
   function setupTerminal() {
@@ -111,9 +148,15 @@
     }
 
     let index = 0;
+    let timer = 0;
+    const queue = (callback, delay) => {
+      window.clearTimeout(timer);
+      if (heroMotionActive) timer = window.setTimeout(callback, delay);
+    };
     function cycle() {
+      if (!heroMotionActive) return;
       if (index >= lines.length) {
-        window.setTimeout(() => {
+        queue(() => {
           terminal.replaceChildren();
           index = 0;
           cycle();
@@ -123,9 +166,13 @@
       const row = appendLine(lines[index]);
       index += 1;
       row.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'both' });
-      window.setTimeout(cycle, 700);
+      queue(cycle, 700);
     }
-    cycle();
+    document.addEventListener('redskill:hero-motion', () => {
+      window.clearTimeout(timer);
+      if (heroMotionActive) cycle();
+    });
+    if (heroMotionActive) cycle();
   }
 
   function renderContent() {
@@ -449,10 +496,10 @@
     };
 
     const schedule = (initial = false) => {
-      if (reduceMotion.matches || document.hidden) return;
+      if (reduceMotion.matches || document.hidden || !heroMotionActive) return;
       const currentSequence = sequence;
       later(() => {
-        if (currentSequence !== sequence || reduceMotion.matches || document.hidden) return;
+        if (currentSequence !== sequence || reduceMotion.matches || document.hidden || !heroMotionActive) return;
 
         const bursts = integer(1, 4);
         let offset = 0;
@@ -476,13 +523,14 @@
       schedule(true);
     };
 
-    document.addEventListener('visibilitychange', restart);
+    document.addEventListener('redskill:hero-motion', restart);
     reduceMotion.addEventListener('change', restart);
-    schedule(true);
+    if (heroMotionActive) schedule(true);
   }
 
   renderContent();
   setupTheme();
+  setupHeroMotionState();
   setupTyping();
   setupTerminal();
   setupCardLighting();

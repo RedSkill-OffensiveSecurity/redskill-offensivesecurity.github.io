@@ -66,7 +66,8 @@
   .hero>.wrap{position:relative;z-index:1}
   .hero-grid{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:76px 76px;-webkit-mask-image:radial-gradient(ellipse 66% 56% at 50% 32%,#000,transparent 76%);mask-image:radial-gradient(ellipse 66% 56% at 50% 32%,#000,transparent 76%)}
   .rings{position:absolute;top:32%;left:50%;transform:translate(-50%,-50%);width:min(96vmin,780px);aspect-ratio:1;pointer-events:none;z-index:0;-webkit-mask-image:radial-gradient(circle,#000 34%,transparent 74%);mask-image:radial-gradient(circle,#000 34%,transparent 74%)}
-  .rings i{position:absolute;inset:0;border:1px solid var(--ring);border-radius:50%;animation:rp 6s ease-out infinite}
+  .rings i{position:absolute;inset:0;border:1px solid var(--ring);border-radius:50%;animation:rp 6s ease-out infinite;animation-play-state:paused}
+  .hero.is-motion-active .rings i{animation-play-state:running}
   .rings i:nth-child(2){animation-delay:1.5s}.rings i:nth-child(3){animation-delay:3s}.rings i:nth-child(4){animation-delay:4.5s}
   @keyframes rp{from{transform:scale(.2);opacity:0}28%{opacity:1}to{transform:scale(1.02);opacity:0}}
   .hero-glow{position:absolute;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:0;opacity:0;transition:opacity .6s var(--ease);background:radial-gradient(circle,rgba(255,45,45,calc(var(--aur-1) * .8)),transparent 62%);filter:blur(60px);transform:translate(-50%,-50%);left:50%;top:36%}
@@ -94,7 +95,8 @@
   @keyframes bitCorrupt{0%,100%{transform:none;color:inherit;text-shadow:none}20%{transform:translateY(-.035em);color:var(--cyan);text-shadow:.055em 0 var(--red)}55%{transform:translate(.025em,.02em);color:#fff;text-shadow:-.045em 0 var(--cyan)}80%{transform:translateX(-.02em);color:var(--red)}}
   .typed-wrap{font-family:var(--mono);font-size:clamp(12px,1.7vw,16px);color:var(--muted);margin-top:24px;min-height:1.6em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .typed-wrap .tp{color:var(--red)}
-  .cur{display:inline-block;width:8px;height:14px;background:var(--red);vertical-align:-2px;margin-left:3px;animation:bk 1s steps(1) infinite}
+  .cur{display:inline-block;width:8px;height:14px;background:var(--red);vertical-align:-2px;margin-left:3px;animation:bk 1s steps(1) infinite;animation-play-state:paused}
+  .hero.is-motion-active .cur{animation-play-state:running}
   @keyframes bk{50%{opacity:0}}
   .h-cta{display:flex;gap:13px;justify-content:center;margin-top:32px;flex-wrap:wrap}
 
