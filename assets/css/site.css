@@ -28,6 +28,11 @@
 .contact .cinfo{justify-content:flex-start;gap:22px}
 .contact .red-stage{opacity:1}
 .contact .det{margin-top:auto}
+@media(min-width:841px){
+  .contact .cinfo{display:grid;grid-template-rows:auto minmax(0,1fr) auto;align-items:stretch}
+  .contact .red-stage{align-self:center}
+  .contact .det{margin-top:0}
+}
 @media(max-width:840px){.contact .cinfo{display:flex;align-items:stretch}}
 @media(max-width:600px){
   .hero-intro{--red-size:min(78vw,410px);min-height:max(410px,calc(var(--red-size) * 1.25 + 10px));padding:24px 0}
