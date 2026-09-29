@@ -147,7 +147,7 @@
 
   function setupCardLighting() {
     if (!finePointer.matches) return;
-    selectAll('.tc, .b').forEach((card) => {
+    selectAll('.tc, .b, .cert-card').forEach((card) => {
       let frame = 0;
       card.addEventListener('pointermove', (event) => {
         if (frame) return;

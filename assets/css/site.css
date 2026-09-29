@@ -1,8 +1,8 @@
 .contact-honeypot{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
-.turnstile-panel{align-self:center;width:min(100%,320px);min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:7px}
+.turnstile-panel{align-self:center;width:min(100%,320px);min-height:65px;display:flex;align-items:flex-start;justify-content:center}
 .turnstile-widget{width:100%;min-height:65px}
 .turnstile-widget.is-compact{width:150px;min-height:140px}
-.turnstile-status{margin:0;color:var(--muted);font:500 10.5px/1.4 var(--mono);text-align:center}
+.turnstile-status{width:100%;margin:-10px 0 0;color:var(--muted);font:500 10.5px/1.4 var(--mono);text-align:center}
 .turnstile-status:empty{display:none}
 .turnstile-status.success{color:var(--green)}
 .turnstile-status.error{color:var(--red)}
