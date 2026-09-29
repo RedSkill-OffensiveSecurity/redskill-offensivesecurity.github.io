@@ -36,7 +36,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
-<link rel="stylesheet" href="assets/css/base.css?v=15" />
+<link rel="stylesheet" href="assets/css/base.css?v=17" />
 <link rel="stylesheet" href="assets/css/mascot.css?v=7" />
 <link rel="stylesheet" href="assets/css/contact.css?v=7" />
 <link rel="stylesheet" href="assets/css/site.css?v=9" />
@@ -191,7 +191,7 @@
       </article>
       <article class="cert-card reveal">
         <span class="cert-index" aria-hidden="true">06</span>
-        <div class="cert-seal cert-seal-compact cert-seal-on-light"><img src="assets/images/certifications/dcpt.png" width="79" height="93" loading="lazy" decoding="async" alt="Selo DCPT da Desec Security" /></div>
+        <div class="cert-seal cert-seal-dcpt"><img src="assets/images/certifications/dcpt.png?v=2" width="1254" height="1254" loading="lazy" decoding="async" alt="Selo DCPT Certified Professional da Desec Security" /></div>
         <div class="cert-copy"><span class="cert-issuer">Desec Security</span><h3>DCPT</h3><p>Desec Certified Penetration Tester</p></div>
       </article>
       <article class="cert-card reveal">
@@ -199,8 +199,13 @@
         <div class="cert-seal"><img src="assets/images/certifications/pentest.png" width="601" height="601" loading="lazy" decoding="async" alt="Selo CompTIA PenTest+" /></div>
         <div class="cert-copy"><span class="cert-issuer">CompTIA</span><h3>PenTest+</h3><p>CompTIA PenTest+</p></div>
       </article>
+      <article class="cert-card reveal">
+        <span class="cert-index" aria-hidden="true">08</span>
+        <div class="cert-seal cert-seal-compact cert-seal-iso cert-seal-on-light"><img src="assets/images/certifications/iso-27001.png" width="500" height="500" loading="lazy" decoding="async" alt="Identificação visual ISO 27001" /></div>
+        <div class="cert-copy"><span class="cert-issuer">ISO/IEC</span><h3>ISO 27001</h3><p>Gestão da Segurança da Informação</p></div>
+      </article>
     </div>
-    <p class="cert-note reveal"><span aria-hidden="true">●</span> Credenciais individuais de profissionais da equipe.</p>
+    <p class="cert-note reveal"><span aria-hidden="true">●</span> Certificações e credenciais apresentadas pela equipe.</p>
   </div>
 </section>
 
@@ -263,11 +268,11 @@
           <label for="website">Website</label>
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
         </div>
+        <button class="btn btn-red" id="contact-submit" type="submit" disabled>Enviar solicitação ↗</button>
+        <p class="turnstile-status" id="turnstile-status" role="status" aria-live="polite">Carregando verificação de segurança…</p>
         <div class="turnstile-panel">
           <div class="turnstile-widget" id="turnstile-widget" data-sitekey="0x4AAAAAAFB31nzNA8Ipk39p"></div>
         </div>
-        <button class="btn btn-red" id="contact-submit" type="submit" disabled>Enviar solicitação ↗</button>
-        <p class="turnstile-status" id="turnstile-status" role="status" aria-live="polite">Carregando verificação de segurança…</p>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -289,6 +294,6 @@
 <script src="assets/js/mascot.js?v=2" defer></script>
 <script src="assets/js/radar.js" defer></script>
 <script src="assets/js/hero.js" defer></script>
-<script src="assets/js/contact.js?v=7" defer></script>
+<script src="assets/js/contact.js?v=8" defer></script>
 </body>
 </html>

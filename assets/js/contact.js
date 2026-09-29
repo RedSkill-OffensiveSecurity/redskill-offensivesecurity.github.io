@@ -71,6 +71,7 @@
     turnstileContainer.classList.toggle('is-compact', compact);
 
     try {
+      setTurnstileStatus('');
       turnstileWidgetId = window.turnstile.render(turnstileContainer, {
         sitekey: turnstileContainer.dataset.sitekey,
         theme: 'auto',
@@ -79,7 +80,7 @@
         action: 'contact',
         retry: 'auto',
         'retry-interval': 8000,
-        callback: token => setVerification(token, 'Verificação concluída.'),
+        callback: token => setVerification(token),
         'expired-callback': () => resetTurnstile('Verificação expirada. Gerando uma nova…'),
         'timeout-callback': () => resetTurnstile('A verificação expirou. Tentando novamente…'),
         'error-callback': code => {
