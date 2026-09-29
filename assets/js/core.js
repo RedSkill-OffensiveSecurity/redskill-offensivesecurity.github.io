@@ -254,20 +254,54 @@
   function setupReveals() {
     const elements = selectAll('.reveal');
     if (reduceMotion.matches || !('IntersectionObserver' in window)) {
-      elements.forEach((element) => element.classList.add('in'));
+      elements.forEach((element) => element.classList.remove('reveal'));
       return;
     }
+
+    const stagger = (selector, step, cap = Infinity) => {
+      selectAll(selector).forEach((element, index) => {
+        element.style.setProperty('--reveal-delay', `${Math.min(index * step, cap)}ms`);
+      });
+    };
+    const gridStagger = (selector, columns, step) => {
+      selectAll(selector).forEach((element, index) => {
+        element.style.setProperty('--reveal-delay', `${(index % columns) * step}ms`);
+      });
+    };
+
+    stagger('.hero-intro > .reveal', 65, 195);
+    stagger('.bento > .reveal', 60, 240);
+    stagger('.services .sec-top > .reveal, .timeline .sec-top > .reveal', 85, 85);
+    const serviceColumns = innerWidth <= 560 ? 1 : innerWidth <= 860 ? 2 : 3;
+    gridStagger('.tilt-grid > .reveal', serviceColumns, 60);
+    stagger('.cert-heading > .reveal', 90, 180);
+    const certificateColumns = innerWidth <= 370 ? 1 : innerWidth <= 920 ? 2 : 4;
+    gridStagger('.cert-list > .reveal', certificateColumns, 70);
+
     root.classList.add('anim');
-    const observer = new IntersectionObserver((entries) => {
+    let observer;
+    const show = (element) => {
+      if (!element.classList.contains('reveal') || element.classList.contains('in')) return;
+      element.classList.add('in');
+      observer?.unobserve(element);
+      const styles = getComputedStyle(element);
+      const durations = styles.transitionDuration.split(',').map((value) => parseFloat(value) || 0);
+      const delays = styles.transitionDelay.split(',').map((value) => parseFloat(value) || 0);
+      const total = Math.max(...durations.map((duration, index) => duration + (delays[index] ?? delays[0] ?? 0))) * 1000;
+      window.setTimeout(() => {
+        element.classList.remove('reveal', 'in');
+        element.style.removeProperty('--reveal-delay');
+      }, total + 90);
+    };
+    observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add('in');
-        observer.unobserve(entry.target);
+        show(entry.target);
       });
-    }, { threshold: .12 });
+    }, { threshold: .1, rootMargin: '0px 0px -4% 0px' });
     elements.forEach((element) => observer.observe(element));
     requestAnimationFrame(() => elements.forEach((element) => {
-      if (element.getBoundingClientRect().top < innerHeight * .96) element.classList.add('in');
+      if (element.getBoundingClientRect().top < innerHeight * .96) show(element);
     }));
   }
 
