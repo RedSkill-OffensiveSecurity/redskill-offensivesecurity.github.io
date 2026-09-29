@@ -1,5 +1,4 @@
 # redskill-offensivesecurity.github.io
-RedSkill Landing Page
 ```
  ____          _     _    _ _ _ 
 |  _ \ ___  __| |___| | _(_) | |
@@ -7,3 +6,4 @@ RedSkill Landing Page
 |  _ <  __/ (_| \__ \   <| | | |
 |_| \_\___|\__,_|___/_|\_\_|_|_|
 ```
+RedSkill Landing Page
