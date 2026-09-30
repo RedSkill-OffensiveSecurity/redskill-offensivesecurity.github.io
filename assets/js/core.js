@@ -8,24 +8,6 @@
   const selectAll = (selector, context = document) => [...context.querySelectorAll(selector)];
   let heroMotionActive = false;
 
-  const services = [
-    ['01', 'Pentest', 'Testes de intrusão para validar a segurança de aplicações, APIs, redes e infraestrutura. Evidências contextualizadas e orientação de correção.'],
-    ['02', 'Red Team', 'Simulações adversariais com objetivos e limites acordados, para avaliar a capacidade de prevenção, detecção e resposta da organização.'],
-    ['03', 'Análise de Vulnerabilidades', 'Mapeamento de exposições e priorização por contexto. Um ponto de partida claro para reduzir a superfície de ataque.'],
-    ['04', 'Resposta a Incidentes', 'Investigação técnica, preservação de evidências e apoio à contenção e recuperação. Entenda o ocorrido e os próximos passos.'],
-    ['05', 'Treinamento & Conscientização', 'Capacitação técnica e conscientização adaptadas ao papel de cada equipe. Conhecimento aplicável à rotina da sua operação.'],
-    ['06', 'Compliance & LGPD', 'Apoio técnico para alinhar práticas de segurança e proteção de dados às exigências do negócio.'],
-    ['07', 'IA', 'Segurança de aplicações e agentes de IA: prompt injection, dados e abuso de fluxos.'],
-    ['08', 'Forense', 'Coleta e análise de evidências digitais para reconstruir eventos e orientar decisões.'],
-    ['09', 'Purple-Team', 'Ataque e defesa juntos para validar controles, telemetria, detecção e resposta.'],
-  ];
-
-  const steps = [
-    ['01 / Alinhar', 'Primeiro, contexto.', 'Objetivos, ativos, limites e regras de execução definidos em conjunto com sua equipe.'],
-    ['02 / Investigar', 'Olhar de atacante.', 'Mapeamento e validação técnica dos caminhos de ataque dentro do escopo acordado.'],
-    ['03 / Traduzir', 'Evidência em decisão.', 'Achados organizados por risco, com contexto de negócio e recomendações práticas.'],
-    ['04 / Evoluir', 'Fechar o ciclo.', 'Alinhamento das correções e definição de uma revalidação conforme o engajamento.'],
-  ];
 
   function setupTheme() {
     const button = select('#tgl');
@@ -42,7 +24,7 @@
     let initialTheme = root.dataset.theme || 'dark';
     try {
       const savedTheme = localStorage.getItem(storageKey);
-      if (savedTheme) initialTheme = savedTheme;
+      if (savedTheme === 'light' || savedTheme === 'dark') initialTheme = savedTheme;
     } catch (_) {}
     applyTheme(initialTheme);
 
@@ -57,7 +39,7 @@
     const bounds = hero.getBoundingClientRect();
     let intersects = bounds.bottom > 0 && bounds.top < innerHeight;
     const sync = () => {
-      const active = intersects && !document.hidden && !reduceMotion.matches;
+      const active = intersects && !document.hidden && !reduceMotion.matches && !root.classList.contains('fox-scene-open');
       if (active === heroMotionActive) return;
       heroMotionActive = active;
       hero.classList.toggle('is-motion-active', active);
@@ -71,6 +53,7 @@
       observer.observe(hero);
     }
     document.addEventListener('visibilitychange', sync);
+    document.addEventListener('redskill:scene', sync);
     reduceMotion.addEventListener('change', sync);
     sync();
   }
@@ -175,25 +158,9 @@
     if (heroMotionActive) cycle();
   }
 
-  function renderContent() {
-    select('#grid').innerHTML = services.map(([number, title, description]) => `
-      <article class="tc reveal">
-        <span class="num">[${number}]</span>
-        <h3>${title}</h3>
-        <p>${description}</p>
-        <span class="ln" aria-hidden="true"><i></i></span>
-      </article>`).join('');
-
-    select('#tl').insertAdjacentHTML('beforeend', steps.map(([number, title, description]) => `
-      <article class="tli reveal">
-        <span class="tn">${number}</span>
-        <h4>${title}</h4>
-        <p>${description}</p>
-      </article>`).join(''));
-  }
 
   function setupCardLighting() {
-    if (!finePointer.matches) return;
+    if (!finePointer.matches || reduceMotion.matches) return;
     selectAll('.tc, .b, .cert-card').forEach((card) => {
       let frame = 0;
       card.addEventListener('pointermove', (event) => {
@@ -248,7 +215,7 @@
 
     document.addEventListener('pointermove', (event) => {
       const editing = event.target.closest('input, textarea, select, label, [contenteditable="true"]');
-      if (!finePointer.matches || reduceMotion.matches || event.pointerType === 'touch' || editing) {
+      if (!finePointer.matches || reduceMotion.matches || root.classList.contains('fox-scene-open') || event.pointerType === 'touch' || editing) {
         hide();
         return;
       }
@@ -269,6 +236,7 @@
     document.documentElement.addEventListener('pointerleave', hide);
     document.addEventListener('keydown', (event) => { if (event.key === 'Tab') hide(); });
     window.addEventListener('blur', hide);
+    document.addEventListener('redskill:scene', hide);
     finePointer.addEventListener('change', hide);
     reduceMotion.addEventListener('change', hide);
   }
@@ -283,11 +251,13 @@
     const update = () => {
       frame = 0;
       const pageHeight = document.documentElement.scrollHeight - innerHeight;
-      progress.style.width = `${pageHeight ? scrollY / pageHeight * 100 : 0}%`;
       const timelineBounds = timeline.getBoundingClientRect();
       const timelineProgress = Math.min(Math.max((innerHeight * .6 - timelineBounds.top) / timelineBounds.height, 0), 1);
-      fill.style.height = `${timelineProgress * 100}%`;
-      timelineItems.forEach((item) => item.classList.toggle('on', item.getBoundingClientRect().top < innerHeight * .6));
+      const activeItems = timelineItems.map((item) => item.getBoundingClientRect().top < innerHeight * .6);
+      // Finish layout reads before applying styles during scroll.
+      progress.style.transform = `scaleX(${pageHeight ? Math.min(1, Math.max(0, scrollY / pageHeight)) : 0})`;
+      fill.style.transform = `scaleY(${timelineProgress})`;
+      timelineItems.forEach((item, index) => item.classList.toggle('on', activeItems[index]));
     };
 
     const schedule = () => {
@@ -299,7 +269,14 @@
   }
 
   function setupReveals() {
-    const elements = selectAll('.reveal');
+    // Content already on screen must paint immediately, without an entrance delay.
+    const elements = selectAll('.reveal').filter((element) => {
+      if (element.getBoundingClientRect().top < innerHeight) {
+        element.classList.remove('reveal');
+        return false;
+      }
+      return true;
+    });
     if (reduceMotion.matches || !('IntersectionObserver' in window)) {
       elements.forEach((element) => element.classList.remove('reveal'));
       return;
@@ -331,25 +308,19 @@
       if (!element.classList.contains('reveal') || element.classList.contains('in')) return;
       element.classList.add('in');
       observer?.unobserve(element);
-      const styles = getComputedStyle(element);
-      const durations = styles.transitionDuration.split(',').map((value) => parseFloat(value) || 0);
-      const delays = styles.transitionDelay.split(',').map((value) => parseFloat(value) || 0);
-      const total = Math.max(...durations.map((duration, index) => duration + (delays[index] ?? delays[0] ?? 0))) * 1000;
+      const delay = parseFloat(element.style.getPropertyValue('--reveal-delay')) || 0;
       window.setTimeout(() => {
         element.classList.remove('reveal', 'in');
         element.style.removeProperty('--reveal-delay');
-      }, total + 90);
+      }, 800 + delay);
     };
     observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         show(entry.target);
       });
-    }, { threshold: .1, rootMargin: '0px 0px -4% 0px' });
+    }, { threshold: .03, rootMargin: '60px 0px' });
     elements.forEach((element) => observer.observe(element));
-    requestAnimationFrame(() => elements.forEach((element) => {
-      if (element.getBoundingClientRect().top < innerHeight * .96) show(element);
-    }));
   }
 
   function setupGlitch() {
@@ -397,13 +368,11 @@
       if (!line.dataset.original) return;
       line.textContent = line.dataset.original;
       delete line.dataset.original;
-      line.removeAttribute('aria-label');
     };
 
     const buildGlyphs = (line) => {
       const original = line.textContent;
       line.dataset.original = original;
-      line.setAttribute('aria-label', original);
       line.replaceChildren();
       let wordIndex = 0;
       [...original].forEach((character) => {
@@ -416,7 +385,13 @@
         glyph.textContent = character;
         line.append(glyph);
       });
-      return selectAll('.glyph', line);
+      const glyphs = selectAll('.glyph', line);
+      const widths = glyphs.map(glyph => glyph.getBoundingClientRect().width);
+      glyphs.forEach((glyph, index) => {
+        glyph.style.display = 'inline-block';
+        glyph.style.width = `${widths[index]}px`;
+      });
+      return glyphs;
     };
 
     const clearVisual = () => {
@@ -528,14 +503,21 @@
     if (heroMotionActive) schedule(true);
   }
 
-  renderContent();
   setupTheme();
-  setupHeroMotionState();
-  setupTyping();
-  setupTerminal();
-  setupCardLighting();
-  setupAimCursor();
-  setupScrollEffects();
-  setupReveals();
-  setupGlitch();
+  // Let the HTML paint, then initialize enhancements in separate short tasks.
+  const afterPaint = () => new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve, 0)));
+  async function enhance() {
+    await afterPaint();
+    setupHeroMotionState();
+    setupReveals();
+    await afterPaint();
+    setupScrollEffects();
+    setupTyping();
+    setupTerminal();
+    await afterPaint();
+    setupCardLighting();
+    setupAimCursor();
+    setupGlitch();
+  }
+  enhance();
 })();

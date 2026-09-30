@@ -10,6 +10,9 @@
 .form-status{min-height:1.5em}
 .form-status.success{color:var(--green)}
 .form-status.error{color:var(--red)}
+/* Avoid zooming the form on iOS and keep touch targets comfortable. */
+@media(hover:none) and (pointer:coarse){.contact input,.contact select,.contact textarea{font-size:16px}.tgl,.nav-r .btn{min-height:44px}.tc{will-change:auto;transform-style:flat}.tc h3,.tc p{transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.tc{will-change:auto;transform-style:flat}.tc h3,.tc p{transform:none}}
 
 .hero-intro{--red-size:min(76vw,620px);position:relative;isolation:isolate;min-height:calc(var(--red-size) * 1.25 - 150px);display:flex;flex-direction:column;justify-content:center;padding:32px 0}
 .hero-intro>.red-stage{position:absolute;z-index:-1;width:var(--red-size);max-width:none;left:50%;top:calc(var(--red-size) * .625 - 126px);margin:0;transform:translate(-50%,-50%);opacity:.3;pointer-events:none}

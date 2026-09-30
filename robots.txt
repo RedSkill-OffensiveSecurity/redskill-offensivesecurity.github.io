@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://redskill.com.br/sitemap.xml

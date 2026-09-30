@@ -20,7 +20,8 @@
     else if (!reduced.matches) angle += dt*42;
     angle = (angle+360)%360;
     sweep.style.transform = `rotate(${angle}deg)`;
-    bearing.textContent = `${Math.round(angle)%360}`.padStart(3,'0')+'°';
+    const label = `${Math.round(angle)%360}`.padStart(3,'0')+'°';
+    if (bearing.textContent !== label) bearing.textContent = label;
     for (const signal of signals) {
       const direction = (Math.atan2(signal.x,-signal.y)*180/Math.PI+360)%360;
       const near = tracking && Math.hypot(x-signal.x,y-signal.y)<.12;
@@ -31,6 +32,10 @@
     }
   }
   function tick(time) {
+    if (previous && time - previous < 32) {
+      frame = requestAnimationFrame(tick);
+      return;
+    }
     const dt = previous ? Math.min((time-previous)/1000,.05) : 1/60;
     previous = time;
     draw(dt);
@@ -38,7 +43,7 @@
   }
   function playback() {
     cancelAnimationFrame(frame); previous = 0;
-    if (visible && !document.hidden && !reduced.matches) frame = requestAnimationFrame(tick);
+    if (visible && !document.hidden && !reduced.matches && !document.documentElement.classList.contains('fox-scene-open')) frame = requestAnimationFrame(tick);
     else draw(0);
   }
   function aim(nx,ny) {
@@ -69,6 +74,7 @@
   });
   if('IntersectionObserver' in window)new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;playback();},{threshold:.01}).observe(radar);
   document.addEventListener('visibilitychange',playback);
+  document.addEventListener('redskill:scene',playback);
   reduced.addEventListener('change',playback);
   playback();
 })();
